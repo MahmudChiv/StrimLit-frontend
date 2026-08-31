@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+const GOOGLE_AUTH_URL = process.env.NEXT_API_URL
+  ? `${process.env.NEXT_API_URL}/auth/google`
   : "http://localhost:4000/auth/google";
 
 export default function NavBar() {
@@ -22,24 +22,23 @@ export default function NavBar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 bg-[#f7f5f0] ${
-        scrolled
+      className={`sticky top-0 z-50 w-full transition-all duration-300 bg-[#f7f5f0] ${scrolled
           ? "border-b border-[#e5e2d8] shadow-sm py-3"
           : "border-b border-transparent py-4.5"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo & Brand Name */}
         <Link href="/" className="flex items-center gap-3 group focus:outline-none">
           {/* <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-[#355265] p-1.5 shadow-sm group-hover:scale-105 transition-all duration-200"> */}
-            <Image
-              src="/Logo.png"
-              alt="StrimLit Logo"
-              width={50}
-              height={50}
-              className="object-contain w-full h-full"
-              priority
-            />
+          <Image
+            src="/Logo.png"
+            alt="StrimLit Logo"
+            width={50}
+            height={50}
+            className="object-contain w-full h-full"
+            priority
+          />
           {/* </div> */}
           <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#1e293b] group-hover:text-[#ff5500] transition-colors duration-200">
             StrimLit
