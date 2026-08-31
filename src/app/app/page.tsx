@@ -39,17 +39,17 @@ export default function AppPage() {
 
         if (res.ok) {
           const data = await res.json();
-          setUser(data.user || data);
+          const userObj = data.user || data;
+          setUser(userObj);
+          return userObj;
         } else {
+          window.location.href = "/";
           return null;
         }
       } catch {
+        window.location.href = "/";
         return null;
       }
-    }
-    const user = fetchMe();
-    if (!user) {
-      window.location.href = "/";
     }
     fetchMe();
   }, []);
