@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-const GOOGLE_AUTH_URL = process.env.NEXT_API_URL
-  ? `${process.env.NEXT_API_URL}/auth/google`
+const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
   : "http://localhost:4000/auth/google";
 
 export default function InteractiveRoomPreview() {
