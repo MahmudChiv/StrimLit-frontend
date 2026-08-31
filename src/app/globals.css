@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --titan-bg-cream: #f7f5f0;
+  --titan-surface-card: #355265;
+  --titan-card-border: rgba(255, 255, 255, 0.25);
+  --titan-text-dark: #1e293b;
+  --titan-text-muted: #64748b;
+  
+  --titan-orange: #ff5500;
+  --titan-orange-hover: #ff661a;
+  --titan-lime: #e5f67c;
+
+  --background: #f7f5f0;
+  --foreground: #1e293b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-sans: var(--font-ubuntu), 'Ubuntu', sans-serif;
+  --color-titan-cream: #f7f5f0;
+  --color-titan-slate: #355265;
+  --color-titan-orange: #ff5500;
+  --color-titan-lime: #e5f67c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif;
+  overflow-x: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s ease-in-out infinite;
+}
+
+/* Titan Intake subtle card border shadow */
+.titan-card-shadow {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 10px 30px -10px rgba(53, 82, 101, 0.12);
+}
+
+.titan-card-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -12px rgba(53, 82, 101, 0.2);
 }
