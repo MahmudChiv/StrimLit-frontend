@@ -46,7 +46,7 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <nav className="hidden lg:flex items-center space-x-1 lg:space-x-2">
           <Link
             href="/"
             className="text-sm font-medium text-slate-700 hover:text-[#ff5500] py-2 px-4 rounded-full hover:bg-[#eae7de] transition-all duration-200"
@@ -82,7 +82,7 @@ export default function NavBar() {
         </nav>
 
         {/* Desktop Call To Action Button (Solid Titan Orange, NO gradients) */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <a
             href={GOOGLE_AUTH_URL}
             className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
@@ -100,7 +100,7 @@ export default function NavBar() {
         </div>
 
         {/* Mobile / Tablet Hamburger Toggle */}
-        <div className="flex md:hidden items-center">
+        <div className="flex lg:hidden items-center">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 rounded-xl text-slate-800 hover:text-[#ff5500] hover:bg-[#eae7de] focus:outline-none transition-colors border border-[#e5e2d8]"
@@ -121,7 +121,7 @@ export default function NavBar() {
 
       {/* Mobile & Tablet Fullscreen Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#f7f5f0] text-[#1e293b] flex flex-col p-6 animate-fade-in md:hidden">
+        <div className="fixed inset-0 z-50 bg-[#f7f5f0] text-[#1e293b] flex flex-col p-6 animate-fade-in lg:hidden">
           {/* Mobile Drawer Header */}
           <div className="flex items-center justify-between pb-6 border-b border-[#e5e2d8]">
             <Link
@@ -129,15 +129,13 @@ export default function NavBar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center gap-3"
             >
-              <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-[#355265] p-1">
-                <Image
-                  src="/Logo.png"
-                  alt="StrimLit Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
-              </div>
+              <Image
+                src="/Logo.png"
+                alt="StrimLit Logo"
+                width={36}
+                height={36}
+                className="object-contain"
+              />
               <span className="text-xl font-bold text-[#1e293b] tracking-tight">StrimLit</span>
             </Link>
 

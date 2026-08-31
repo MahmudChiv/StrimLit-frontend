@@ -13,7 +13,7 @@ interface UserProfile {
   googleId?: string;
 }
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AppPage() {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -39,11 +39,14 @@ export default function AppPage() {
 
         if (res.ok) {
           const data = await res.json();
-          setUser(data.user || data);
+          console.log(data.me)
+          setUser(data.me || data);
         } else {
+          console.log(`Couldn't fetch user`)
           return null;
         }
-      } catch {
+      } catch(error) {
+        console.log(`Same, couldn't fetch user: ${error}`)
         return null;
       }
     }
@@ -133,88 +136,27 @@ export default function AppPage() {
     <div className="min-h-screen bg-[#f7f5f0] text-[#1e293b] flex flex-col font-sans">
       {/* TOP BAR */}
       <header className="sticky top-0 z-40 w-full bg-[#f7f5f0] border-b border-[#e5e2d8] py-3 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Top-Left: Logo + Text */}
+        <div className="max-w-7xl mx-auto flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 sm:gap-4">
+          {/* Top-Left: Logo + Text (Order 1 on mobile & desktop) */}
           <Link
             href="/app"
-            className="flex items-center gap-3 group focus:outline-none self-start sm:self-auto"
+            className="order-1 flex items-center gap-3 group focus:outline-none"
           >
-            <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#355265] p-1.5 shadow-sm group-hover:scale-105 transition-all">
-              <Image
-                src="/Logo.png"
-                alt="StrimLit Logo"
-                width={36}
-                height={36}
-                className="object-contain w-full h-full"
-                priority
-              />
-            </div>
+            <Image
+              src="/Logo.png"
+              alt="StrimLit Logo"
+              width={40}
+              height={40}
+              className="object-contain w-9 h-9 sm:w-10 sm:h-10 group-hover:scale-105 transition-transform duration-200"
+              priority
+            />
             <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#1e293b] group-hover:text-[#ff5500] transition-colors">
               StrimLit
             </span>
           </Link>
 
-          {/* Top-Center: Enter meeting link/code input + New Meeting button */}
-          <form
-            onSubmit={handleJoinMeeting}
-            className="flex items-center gap-2.5 w-full sm:w-auto max-w-md bg-white p-1.5 rounded-full border border-[#e5e2d8] focus-within:border-[#ff5500] transition-all shadow-sm"
-          >
-            <div className="flex items-center pl-3 text-slate-400">
-              <svg
-                className="w-5 h-5 text-slate-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-            <input
-              type="text"
-              value={meetingCode}
-              onChange={(e) => setMeetingCode(e.target.value)}
-              placeholder="Enter meeting link or code"
-              className="w-full bg-transparent text-sm text-[#1e293b] placeholder-slate-400 focus:outline-none px-2 py-1"
-            />
-            {meetingCode.trim() ? (
-              <button
-                type="submit"
-                className="px-4 py-2 rounded-full text-xs font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] transition-all shrink-0 cursor-pointer"
-              >
-                Join
-              </button>
-            ) : null}
-
-            {/* New Button beside space bar for creating new meeting */}
-            <button
-              type="button"
-              onClick={handleCreateNewMeeting}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] shadow-sm transition-all shrink-0 cursor-pointer"
-            >
-              <svg
-                className="w-4 h-4 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
-              <span>New meeting</span>
-            </button>
-          </form>
-
-          {/* Top-Right: User Avatar + Profile CTA */}
-          <div className="relative self-end sm:self-auto" ref={profileRef}>
+          {/* Top-Right on Mobile (Order 2 on mobile, Order 3 on desktop): User Avatar + Profile CTA */}
+          <div className="order-2 sm:order-3 relative" ref={profileRef}>
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="flex items-center gap-2.5 p-1.5 rounded-full bg-white border border-[#e5e2d8] hover:border-[#ff5500] transition-all focus:outline-none cursor-pointer shadow-sm"
@@ -318,6 +260,65 @@ export default function AppPage() {
               </div>
             )}
           </div>
+
+          {/* Top-Center on Desktop (Order 3 on mobile, Order 2 on desktop): Enter meeting link/code input + New Meeting button */}
+          <form
+            onSubmit={handleJoinMeeting}
+            className="order-3 sm:order-2 flex items-center gap-2.5 w-full sm:w-auto max-w-md bg-white p-1.5 rounded-full border border-[#e5e2d8] focus-within:border-[#ff5500] transition-all shadow-sm"
+          >
+            <div className="flex items-center pl-3 text-slate-400">
+              <svg
+                className="w-5 h-5 text-slate-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={meetingCode}
+              onChange={(e) => setMeetingCode(e.target.value)}
+              placeholder="Enter meeting link or code"
+              className="w-full bg-transparent text-sm text-[#1e293b] placeholder-slate-400 focus:outline-none px-2 py-1"
+            />
+            {meetingCode.trim() ? (
+              <button
+                type="submit"
+                className="px-4 py-2 rounded-full text-xs font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] transition-all shrink-0 cursor-pointer"
+              >
+                Join
+              </button>
+            ) : null}
+
+            {/* New Button beside space bar for creating new meeting */}
+            <button
+              type="button"
+              onClick={handleCreateNewMeeting}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] shadow-sm transition-all shrink-0 cursor-pointer"
+            >
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              <span className="whitespace-nowrap">New meeting</span>
+            </button>
+          </form>
         </div>
       </header>
 

@@ -82,21 +82,23 @@ export default function HeroSection() {
           <div className="mt-12 relative max-w-4xl">
             <div className="rounded-2xl bg-[#233845] p-4 sm:p-5 border border-white/20 shadow-2xl relative overflow-hidden">
               {/* Window Controls Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-white/15 px-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                  <span className="ml-3 text-xs font-semibold text-[#e5f67c] flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#e5f67c] animate-ping" />
-                    StrimLit Room: Engineering Standup
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 pb-3 border-b border-white/15 px-1 sm:px-2">
+                <div className="flex items-center gap-2 max-w-full overflow-hidden">
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400" />
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400" />
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400" />
+                  </div>
+                  <span className="ml-1 sm:ml-2 text-xs font-semibold text-[#e5f67c] flex items-center gap-1.5 truncate">
+                    <span className="w-2 h-2 rounded-full bg-[#e5f67c] animate-ping shrink-0" />
+                    <span className="truncate text-[11px] sm:text-xs">StrimLit Room: Engineering Standup</span>
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 bg-[#1b2d38] p-1 rounded-lg text-xs font-medium border border-white/10">
+                <div className="flex items-center gap-1 sm:gap-2 bg-[#1b2d38] p-1 rounded-lg text-xs font-medium border border-white/10 shrink-0">
                   <button
                     onClick={() => setActiveTab("grid")}
-                    className={`px-3 py-1 rounded-md transition-colors ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-md transition-colors text-[11px] sm:text-xs ${
                       activeTab === "grid"
                         ? "bg-[#ff5500] text-white font-bold"
                         : "text-slate-300 hover:text-white"
@@ -106,7 +108,7 @@ export default function HeroSection() {
                   </button>
                   <button
                     onClick={() => setActiveTab("focus")}
-                    className={`px-3 py-1 rounded-md transition-colors ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-md transition-colors text-[11px] sm:text-xs ${
                       activeTab === "focus"
                         ? "bg-[#ff5500] text-white font-bold"
                         : "text-slate-300 hover:text-white"
@@ -119,46 +121,46 @@ export default function HeroSection() {
 
               {/* Grid / Focus Display */}
               {activeTab === "grid" ? (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 pb-2">
-                  <div className="relative rounded-xl overflow-hidden aspect-video bg-[#1b2d38] border-2 border-[#ff5500]">
-                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/60 text-[10px] font-semibold text-white">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-4 pb-2">
+                  <div className="relative rounded-xl overflow-hidden min-h-[105px] sm:min-h-[120px] bg-[#294252] border-2 border-[#ff5500] flex flex-col justify-between p-2 sm:p-3">
+                    <div className="inline-block px-1.5 py-0.5 rounded bg-black/70 text-[9px] sm:text-[10px] font-semibold text-white truncate max-w-[90%] border border-white/10 self-start z-10">
                       Sarah Lin (Host)
                     </div>
-                    <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-[#294252]">
-                      <div className="w-12 h-12 rounded-full bg-[#ff5500] text-white flex items-center justify-center font-bold text-base">
+                    <div className="flex-1 flex items-center justify-center pt-2 sm:pt-0">
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#ff5500] text-white flex items-center justify-center font-bold text-xs sm:text-base shadow-sm">
                         SL
                       </div>
                     </div>
                   </div>
 
-                  <div className="relative rounded-xl overflow-hidden aspect-video bg-[#1b2d38] border border-white/10">
-                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/60 text-[10px] font-semibold text-white">
+                  <div className="relative rounded-xl overflow-hidden min-h-[105px] sm:min-h-[120px] bg-[#1b2d38] border border-white/10 flex flex-col justify-between p-2 sm:p-3">
+                    <div className="inline-block px-1.5 py-0.5 rounded bg-black/70 text-[9px] sm:text-[10px] font-semibold text-white truncate max-w-[90%] border border-white/10 self-start z-10">
                       Alex Mercer
                     </div>
-                    <div className="w-full h-full flex items-center justify-center bg-[#1b2d38] p-3">
-                      <div className="w-12 h-12 rounded-full bg-[#355265] text-white flex items-center justify-center font-bold text-base">
+                    <div className="flex-1 flex items-center justify-center pt-2 sm:pt-0">
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#355265] text-white flex items-center justify-center font-bold text-xs sm:text-base shadow-sm">
                         AM
                       </div>
                     </div>
                   </div>
 
-                  <div className="relative rounded-xl overflow-hidden aspect-video bg-[#1b2d38] border border-white/10">
-                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/60 text-[10px] font-semibold text-white">
+                  <div className="relative rounded-xl overflow-hidden min-h-[105px] sm:min-h-[120px] bg-[#1b2d38] border border-white/10 flex flex-col justify-between p-2 sm:p-3">
+                    <div className="inline-block px-1.5 py-0.5 rounded bg-black/70 text-[9px] sm:text-[10px] font-semibold text-white truncate max-w-[90%] border border-white/10 self-start z-10">
                       David K.
                     </div>
-                    <div className="w-full h-full flex items-center justify-center bg-[#1b2d38] p-3">
-                      <div className="w-12 h-12 rounded-full bg-[#355265] text-white flex items-center justify-center font-bold text-base">
+                    <div className="flex-1 flex items-center justify-center pt-2 sm:pt-0">
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#355265] text-white flex items-center justify-center font-bold text-xs sm:text-base shadow-sm">
                         DK
                       </div>
                     </div>
                   </div>
 
-                  <div className="relative rounded-xl overflow-hidden aspect-video bg-[#1b2d38] border border-white/10">
-                    <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-black/60 text-[10px] font-semibold text-white">
+                  <div className="relative rounded-xl overflow-hidden min-h-[105px] sm:min-h-[120px] bg-[#1b2d38] border border-white/10 flex flex-col justify-between p-2 sm:p-3">
+                    <div className="inline-block px-1.5 py-0.5 rounded bg-black/70 text-[9px] sm:text-[10px] font-semibold text-white truncate max-w-[90%] border border-white/10 self-start z-10">
                       Elena R.
                     </div>
-                    <div className="w-full h-full flex items-center justify-center bg-[#1b2d38] p-3">
-                      <div className="w-12 h-12 rounded-full bg-[#355265] text-white flex items-center justify-center font-bold text-base">
+                    <div className="flex-1 flex items-center justify-center pt-2 sm:pt-0">
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#355265] text-white flex items-center justify-center font-bold text-xs sm:text-base shadow-sm">
                         ER
                       </div>
                     </div>
