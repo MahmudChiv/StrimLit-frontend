@@ -37,6 +37,7 @@ export default function AppPage() {
 
       if (res.ok) {
         const data = await res.json();
+        console.log(`User data fetched: ${data.me}`)
         setUser(data.me || data);
       } else {
         console.log("Couldn't fetch user");
