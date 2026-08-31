@@ -4,8 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+const GOOGLE_AUTH_URL = process.env.NEXT_API_URL
+  ? `${process.env.NEXT_API_URL}/auth/google`
   : "http://localhost:4000/auth/google";
 
 export default function HeroSection() {
@@ -14,10 +14,8 @@ export default function HeroSection() {
   return (
     <section className="pt-4 pb-16 lg:pt-6 lg:pb-24 bg-[#f7f5f0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Main Titan Intake Style Hero Container Card */}
         <div className="relative rounded-[2.5rem] bg-[#355265] border border-[#567488] p-6 sm:p-12 lg:p-16 text-white shadow-xl overflow-hidden">
-          
           <div className="max-w-3xl space-y-6 relative z-10">
             {/* Eyebrow Label */}
             <div className="text-xs sm:text-sm font-semibold tracking-wider text-[#e5f67c] uppercase">
@@ -31,7 +29,9 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className="text-base sm:text-lg text-[#d8e2e9] leading-relaxed max-w-2xl font-normal">
-              StrimLit brings remote teams together with instant high-definition video calls, focus co-working spaces, and automated AI meeting summaries.
+              StrimLit brings remote teams together with instant high-definition
+              video calls, focus co-working spaces, and automated AI meeting
+              summaries.
             </p>
 
             {/* Action Buttons */}
@@ -41,8 +41,18 @@ export default function HeroSection() {
                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-bold text-[#1e293b] bg-[#e5f67c] hover:bg-[#d6e76b] transition-all duration-200 cursor-pointer shadow-sm"
               >
                 <span>Start a Free Meeting</span>
-                <svg className="w-4 h-4 text-[#1e293b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <svg
+                  className="w-4 h-4 text-[#1e293b]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
                 </svg>
               </a>
 
@@ -87,7 +97,9 @@ export default function HeroSection() {
                   <button
                     onClick={() => setActiveTab("grid")}
                     className={`px-3 py-1 rounded-md transition-colors ${
-                      activeTab === "grid" ? "bg-[#ff5500] text-white font-bold" : "text-slate-300 hover:text-white"
+                      activeTab === "grid"
+                        ? "bg-[#ff5500] text-white font-bold"
+                        : "text-slate-300 hover:text-white"
                     }`}
                   >
                     Grid View (4)
@@ -95,7 +107,9 @@ export default function HeroSection() {
                   <button
                     onClick={() => setActiveTab("focus")}
                     className={`px-3 py-1 rounded-md transition-colors ${
-                      activeTab === "focus" ? "bg-[#ff5500] text-white font-bold" : "text-slate-300 hover:text-white"
+                      activeTab === "focus"
+                        ? "bg-[#ff5500] text-white font-bold"
+                        : "text-slate-300 hover:text-white"
                     }`}
                   >
                     Focus Room
@@ -154,17 +168,19 @@ export default function HeroSection() {
                 <div className="pt-4 pb-2">
                   <div className="rounded-xl aspect-video bg-[#1b2d38] border border-white/10 flex items-center justify-center p-6 text-center">
                     <div className="space-y-2">
-                      <h4 className="text-lg font-bold text-white">Focus Co-Working Active</h4>
-                      <p className="text-xs text-[#d8e2e9]">Ambient soundscapes & pomodoro timer enabled</p>
+                      <h4 className="text-lg font-bold text-white">
+                        Focus Co-Working Active
+                      </h4>
+                      <p className="text-xs text-[#d8e2e9]">
+                        Ambient soundscapes & pomodoro timer enabled
+                      </p>
                     </div>
                   </div>
                 </div>
               )}
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );

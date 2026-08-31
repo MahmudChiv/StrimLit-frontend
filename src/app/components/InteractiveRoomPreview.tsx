@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-const GOOGLE_AUTH_URL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+const GOOGLE_AUTH_URL = process.env.NEXT_API_URL
+  ? `${process.env.NEXT_API_URL}/auth/google`
   : "http://localhost:4000/auth/google";
 
 export default function InteractiveRoomPreview() {
@@ -14,7 +14,8 @@ export default function InteractiveRoomPreview() {
       title: "Daily Team Standup",
       subtitle: "Active Speaker & Participant Grid",
       tag: "Best for Agile Teams",
-      description: "Fast 15-minute syncs with active speaker spotlight, automatic timekeeper, and instant action item logging.",
+      description:
+        "Fast 15-minute syncs with active speaker spotlight, automatic timekeeper, and instant action item logging.",
       metrics: [
         { label: "Max Capacity", val: "25 Users" },
         { label: "Audio Mode", val: "Adaptive Noise Cancellation" },
@@ -26,7 +27,8 @@ export default function InteractiveRoomPreview() {
       title: "1-on-1 Co-Working Room",
       subtitle: "Split Screen & Code Share",
       tag: "Best for Pair Programming",
-      description: "Work side-by-side in real-time with dual screen sharing, shared terminal stream, and zero latency video.",
+      description:
+        "Work side-by-side in real-time with dual screen sharing, shared terminal stream, and zero latency video.",
       metrics: [
         { label: "Max Capacity", val: "2 Users" },
         { label: "Video Quality", val: "4K 60FPS Screen Capture" },
@@ -38,7 +40,8 @@ export default function InteractiveRoomPreview() {
       title: "All-Hands Webinar",
       subtitle: "Stage Broadcast & Q&A Queue",
       tag: "Best for Large Broadcasts",
-      description: "Host up to 500 attendees with moderated stage access, interactive Q&A voting, and live recording.",
+      description:
+        "Host up to 500 attendees with moderated stage access, interactive Q&A voting, and live recording.",
       metrics: [
         { label: "Max Capacity", val: "500+ Attendees" },
         { label: "Broadcast Mode", val: "HLS / Low Latency WebRTC" },
@@ -50,7 +53,8 @@ export default function InteractiveRoomPreview() {
       title: "Silent Focus Lounge",
       subtitle: "Ambient Audio & Pomodoro",
       tag: "Best for Deep Concentration",
-      description: "Co-work quietly alongside teammates with ambient lo-fi music, customizable pomodoro timers, and status badges.",
+      description:
+        "Co-work quietly alongside teammates with ambient lo-fi music, customizable pomodoro timers, and status badges.",
       metrics: [
         { label: "Max Capacity", val: "Unlimited" },
         { label: "Audio Mode", val: "Lo-Fi Beats & Binaural White Noise" },
@@ -61,7 +65,10 @@ export default function InteractiveRoomPreview() {
   ];
 
   return (
-    <section id="interactive" className="py-20 lg:py-28 bg-[#f7f5f0] border-t border-[#e5e2d8]">
+    <section
+      id="interactive"
+      className="py-20 lg:py-28 bg-[#f7f5f0] border-t border-[#e5e2d8]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
@@ -73,7 +80,8 @@ export default function InteractiveRoomPreview() {
             for Every Team Ritual
           </h2>
           <p className="text-slate-600 text-base sm:text-lg">
-            Choose a room environment designed specifically for the way you work.
+            Choose a room environment designed specifically for the way you
+            work.
           </p>
         </div>
 
@@ -119,9 +127,16 @@ export default function InteractiveRoomPreview() {
               {/* Metric badges */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                 {rooms[selectedRoom].metrics.map((m, idx) => (
-                  <div key={idx} className="p-3 rounded-xl bg-[#2e4758] border border-white/20">
-                    <div className="text-[11px] text-[#d8e2e9] font-medium">{m.label}</div>
-                    <div className="text-xs font-bold text-white mt-0.5">{m.val}</div>
+                  <div
+                    key={idx}
+                    className="p-3 rounded-xl bg-[#2e4758] border border-white/20"
+                  >
+                    <div className="text-[11px] text-[#d8e2e9] font-medium">
+                      {m.label}
+                    </div>
+                    <div className="text-xs font-bold text-white mt-0.5">
+                      {m.val}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -132,8 +147,18 @@ export default function InteractiveRoomPreview() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] shadow-sm transition-all"
                 >
                   <span>Launch This Room</span>
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
                   </svg>
                 </a>
               </div>
@@ -144,7 +169,9 @@ export default function InteractiveRoomPreview() {
               <div className="flex items-center justify-between border-b border-white/15 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#e5f67c] animate-ping" />
-                  <span className="text-xs font-bold text-white">Live Stage Feed</span>
+                  <span className="text-xs font-bold text-white">
+                    Live Stage Feed
+                  </span>
                 </div>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#ff5500] text-white">
                   ENCRYPTED

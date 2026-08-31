@@ -13,7 +13,7 @@ interface UserProfile {
   googleId?: string;
 }
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const BACKEND_URL = process.env.NEXT_API_URL || "http://localhost:4000";
 
 export default function AppPage() {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -57,7 +57,10 @@ export default function AppPage() {
   // Close profile dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
         setIsProfileOpen(false);
       }
     }
@@ -69,7 +72,7 @@ export default function AppPage() {
   const handleCreateNewMeeting = async () => {
     // const randomCode = `strim-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
     // const fullLink = `${window.location.origin}/room/${randomCode}`;
-    
+
     const res = await fetch(`${BACKEND_URL}/meeting/create`, {
       method: "POST",
       headers: {
@@ -87,7 +90,9 @@ export default function AppPage() {
   const handleJoinMeeting = (e: React.FormEvent) => {
     e.preventDefault();
     if (!meetingCode.trim()) return;
-    const cleanCode = meetingCode.trim().replace(/^https?:\/\/[^\/]+\/meeting\/+\/room\//, "");
+    const cleanCode = meetingCode
+      .trim()
+      .replace(/^https?:\/\/[^\/]+\/meeting\/+\/room\//, "");
     window.location.href = `/meeting/room/${cleanCode}`;
   };
 
@@ -115,21 +120,25 @@ export default function AppPage() {
   const displayName = user
     ? user.firstName || user.email?.split("@")[0] || "User"
     : "User";
-  const userInitials = user?.avatar ?? displayName
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
+  const userInitials =
+    user?.avatar ??
+    displayName
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
 
   return (
     <div className="min-h-screen bg-[#f7f5f0] text-[#1e293b] flex flex-col font-sans">
       {/* TOP BAR */}
       <header className="sticky top-0 z-40 w-full bg-[#f7f5f0] border-b border-[#e5e2d8] py-3 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          
           {/* Top-Left: Logo + Text */}
-          <Link href="/app" className="flex items-center gap-3 group focus:outline-none self-start sm:self-auto">
+          <Link
+            href="/app"
+            className="flex items-center gap-3 group focus:outline-none self-start sm:self-auto"
+          >
             <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#355265] p-1.5 shadow-sm group-hover:scale-105 transition-all">
               <Image
                 src="/Logo.png"
@@ -151,8 +160,18 @@ export default function AppPage() {
             className="flex items-center gap-2.5 w-full sm:w-auto max-w-md bg-white p-1.5 rounded-full border border-[#e5e2d8] focus-within:border-[#ff5500] transition-all shadow-sm"
           >
             <div className="flex items-center pl-3 text-slate-400">
-              <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              <svg
+                className="w-5 h-5 text-slate-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
               </svg>
             </div>
             <input
@@ -177,8 +196,18 @@ export default function AppPage() {
               onClick={handleCreateNewMeeting}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white bg-[#ff5500] hover:bg-[#ff661a] shadow-sm transition-all shrink-0 cursor-pointer"
             >
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M12 4v16m8-8H4"
+                />
               </svg>
               <span>New meeting</span>
             </button>
@@ -207,8 +236,18 @@ export default function AppPage() {
               <span className="text-xs font-semibold text-[#1e293b] hidden md:inline pr-1">
                 {displayName}
               </span>
-              <svg className="w-4 h-4 text-slate-500 pr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-4 h-4 text-slate-500 pr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
@@ -231,8 +270,12 @@ export default function AppPage() {
                     </div>
                   )}
                   <div className="overflow-hidden">
-                    <h4 className="text-sm font-bold text-[#1e293b] truncate">{displayName}</h4>
-                    <p className="text-xs text-slate-500 truncate">{user?.email || "user@strimlit.com"}</p>
+                    <h4 className="text-sm font-bold text-[#1e293b] truncate">
+                      {displayName}
+                    </h4>
+                    <p className="text-xs text-slate-500 truncate">
+                      {user?.email || "user@strimlit.com"}
+                    </p>
                     <span className="inline-block mt-1 px-2 py-0.5 rounded bg-[#f7f5f0] text-[#ff5500] text-[10px] font-semibold border border-[#e5e2d8]">
                       Google Authenticated
                     </span>
@@ -256,8 +299,18 @@ export default function AppPage() {
                     onClick={handleLogout}
                     className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold text-red-600 hover:text-white bg-red-50 hover:bg-red-600 border border-red-200 transition-all cursor-pointer"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5" />
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5"
+                      />
                     </svg>
                     <span>Sign Out</span>
                   </button>
@@ -265,22 +318,20 @@ export default function AppPage() {
               </div>
             )}
           </div>
-
         </div>
       </header>
 
       {/* MAIN BODY OF THE APP */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col items-center justify-center">
-        
         <div className="max-w-3xl w-full bg-[#355265] rounded-3xl border border-[#567488] p-6 sm:p-12 text-center shadow-xl space-y-8 relative overflow-hidden text-white">
-          
           {/* Heading */}
           <div className="space-y-2 relative z-10">
             <h1 className="text-3xl sm:text-4xl font-light text-white tracking-tight">
               Premium Video Meetings & Co-Working
             </h1>
             <p className="text-[#d8e2e9] text-sm sm:text-base max-w-lg mx-auto">
-              Connect with your team, share ideas, and work together in crystal-clear HD.
+              Connect with your team, share ideas, and work together in
+              crystal-clear HD.
             </p>
           </div>
 
@@ -302,8 +353,18 @@ export default function AppPage() {
               onClick={handleCreateNewMeeting}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-base font-bold text-[#1e293b] bg-[#e5f67c] hover:bg-[#d6e76b] shadow-md transition-all cursor-pointer"
             >
-              <svg className="w-5 h-5 text-[#1e293b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+              <svg
+                className="w-5 h-5 text-[#1e293b]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M12 4v16m8-8H4"
+                />
               </svg>
               <span>New meeting</span>
             </button>
@@ -312,7 +373,9 @@ export default function AppPage() {
               onClick={() => {
                 const code = prompt("Enter meeting link or room code:");
                 if (code) {
-                  const cleanCode = code.trim().replace(/^https?:\/\/[^\/]+\/meeting\/+\/room\//, "");
+                  const cleanCode = code
+                    .trim()
+                    .replace(/^https?:\/\/[^\/]+\/meeting\/+\/room\//, "");
                   window.location.href = `/meeting/room/${cleanCode}`;
                 }
               }}
@@ -324,10 +387,10 @@ export default function AppPage() {
 
           {/* Quick info footer */}
           <p className="text-xs text-[#d8e2e9] pt-2">
-            Tip: Share your meeting link directly with team members to join instantly without registration.
+            Tip: Share your meeting link directly with team members to join
+            instantly without registration.
           </p>
         </div>
-
       </main>
 
       {/* NEW MEETING MODAL */}
@@ -343,14 +406,25 @@ export default function AppPage() {
                 onClick={() => setIsNewMeetingModalOpen(false)}
                 className="p-1 rounded-full text-slate-300 hover:text-white bg-white/10 hover:bg-white/20 transition-colors"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
 
             <p className="text-xs text-[#d8e2e9] leading-relaxed">
-              Copy this link and send it to people you want to meet with. Be sure to save it so you can use it later.
+              Copy this link and send it to people you want to meet with. Be
+              sure to save it so you can use it later.
             </p>
 
             <div className="flex items-center gap-2 bg-[#233845] p-2 rounded-2xl border border-white/20">
