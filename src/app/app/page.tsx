@@ -27,35 +27,29 @@ export default function AppPage() {
 
   // Fetch current user status from backend /auth/me
   useEffect(() => {
-    async function fetchMe() {
-      try {
-        const res = await fetch(`${BACKEND_URL}/auth/me`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+  async function fetchMe() {
+    try {
+      const res = await fetch(`${BACKEND_URL}/auth/me`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
 
-        if (res.ok) {
-          const data = await res.json();
-          console.log(data.me)
-          setUser(data.me || data);
-        } else {
-          console.log(`Couldn't fetch user`)
-          return null;
-        }
-      } catch(error) {
-        console.log(`Same, couldn't fetch user: ${error}`)
-        return null;
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.me || data);
+      } else {
+        console.log("Couldn't fetch user");
+        window.location.href = "/";
       }
-    }
-    const user = fetchMe();
-    if (!user) {
+    } catch (error) {
+      console.log(`Same, couldn't fetch user: ${error}`);
       window.location.href = "/";
     }
-    fetchMe();
-  }, []);
+  }
+
+  fetchMe(); // called exactly once
+}, []);
 
   // Close profile dropdown when clicking outside
   useEffect(() => {
