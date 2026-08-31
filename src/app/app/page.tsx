@@ -39,17 +39,17 @@ export default function AppPage() {
 
         if (res.ok) {
           const data = await res.json();
-          const userObj = data.user || data;
-          setUser(userObj);
-          return userObj;
+          setUser(data.user || data);
         } else {
-          window.location.href = "/";
           return null;
         }
       } catch {
-        window.location.href = "/";
         return null;
       }
+    }
+    const user = fetchMe();
+    if (!user) {
+      window.location.href = "/";
     }
     fetchMe();
   }, []);
@@ -436,11 +436,10 @@ export default function AppPage() {
               />
               <button
                 onClick={handleCopyLink}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
-                  copied
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${copied
                     ? "bg-emerald-500 text-white"
                     : "bg-[#ff5500] hover:bg-[#ff661a] text-white"
-                }`}
+                  }`}
               >
                 {copied ? "Copied!" : "Copy"}
               </button>
