@@ -34,10 +34,10 @@ export default function AppPage() {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
-      console.log(`User fetched from 37: ${await res.json()}`)
-
+      const data = await res.json();
+      console.log(`User fetched from 37: ${data}`)
+      
       if (res.ok) {
-        const data = await res.json();
         console.log(`User data fetched: ${data.me}`)
         setUser(data.me || data);
       } else {
