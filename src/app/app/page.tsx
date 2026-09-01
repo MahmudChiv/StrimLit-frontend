@@ -26,32 +26,43 @@ export default function AppPage() {
   const profileRef = useRef<HTMLDivElement>(null);
 
   // Fetch current user status from backend /auth/me
-  useEffect(() => {
-  async function fetchMe() {
-    try {
-      const res = await fetch(`${BACKEND_URL}/auth/me`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-      const data = await res.json();
-      console.log(`User fetched from 37: ${data}`)
-      
-      if (res.ok) {
-        console.log(`User data fetched: ${data.me}`)
-        setUser(data.me || data);
-      } else {
-        console.log("Couldn't fetch user");
-        // window.location.href = "/";
-      }
-    } catch (error) {
-      console.log(`Error, couldn't fetch user: ${error}`);
-      window.location.href = "/";
-    }
-  }
 
-  fetchMe(); // called exactly once
-}, []);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("access_token", token);
+      window.history.replaceState({}, "", "/app"); // strip token from URL
+    }
+  }, [])
+
+  useEffect(() => {
+    async function fetchMe() {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        window.location.href = "/";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          setUser(data.me || data);
+        } else {
+          localStorage.removeItem("access_token");
+          window.location.href = "/";
+        }
+      } catch {
+        window.location.href = "/";
+      }
+    }
+
+    fetchMe(); // called exactly once
+  }, []);
 
   // Close profile dropdown when clicking outside
   useEffect(() => {
@@ -72,12 +83,14 @@ export default function AppPage() {
     // const randomCode = `strim-${Math.random().toString(36).substring(2, 6)}-${Math.random().toString(36).substring(2, 6)}`;
     // const fullLink = `${window.location.origin}/room/${randomCode}`;
 
+    const token = localStorage.getItem("access_token");
+
     const res = await fetch(`${BACKEND_URL}/meeting/create`, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
     const data = await res.json();
     const fullLink = data.meetingUrl;
@@ -96,15 +109,8 @@ export default function AppPage() {
   };
 
   // Handle Logout
-  const handleLogout = async () => {
-    try {
-      await fetch(`${BACKEND_URL}/auth/logout`, {
-        method: "GET",
-        credentials: "include",
-      });
-    } catch {
-      // Ignore network errors
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
     window.location.href = "/";
   };
 
@@ -434,8 +440,8 @@ export default function AppPage() {
               <button
                 onClick={handleCopyLink}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${copied
-                    ? "bg-emerald-500 text-white"
-                    : "bg-[#ff5500] hover:bg-[#ff661a] text-white"
+                  ? "bg-emerald-500 text-white"
+                  : "bg-[#ff5500] hover:bg-[#ff661a] text-white"
                   }`}
               >
                 {copied ? "Copied!" : "Copy"}
