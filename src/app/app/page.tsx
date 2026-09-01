@@ -34,6 +34,7 @@ export default function AppPage() {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
+      console.log(`User fetched from 37: ${await res.json()}`)
 
       if (res.ok) {
         const data = await res.json();
@@ -41,10 +42,10 @@ export default function AppPage() {
         setUser(data.me || data);
       } else {
         console.log("Couldn't fetch user");
-        window.location.href = "/";
+        // window.location.href = "/";
       }
     } catch (error) {
-      console.log(`Same, couldn't fetch user: ${error}`);
+      console.log(`Error, couldn't fetch user: ${error}`);
       window.location.href = "/";
     }
   }
